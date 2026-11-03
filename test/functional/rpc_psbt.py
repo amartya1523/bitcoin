@@ -1404,6 +1404,10 @@ class PSBTTest(BitcoinTestFramework):
         psbt2 = self.nodes[1].createpsbt(inputs=[utxo1], outputs={self.nodes[0].getnewaddress():Decimal('10.999')}, psbt_version=2)
         assert_raises_rpc_error(-8, "joinpsbts only operates on version 0 PSBTs", self.nodes[1].joinpsbts, [psbt1, psbt2])
 
+        # Joining needs at least two PSBTs
+        assert_raises_rpc_error(-8, "At least two PSBTs are required to join PSBTs.", self.nodes[1].joinpsbts, [])
+        assert_raises_rpc_error(-8, "At least two PSBTs are required to join PSBTs.", self.nodes[1].joinpsbts, [psbt1])
+
         # Two PSBTs with a common input should not be joinable
         psbt2 = self.nodes[1].createpsbt([utxo1], {self.nodes[0].getnewaddress():Decimal('10.999')}, psbt_version=0)
         assert_raises_rpc_error(-8, "exists in multiple PSBTs", self.nodes[1].joinpsbts, [psbt1, psbt2])
