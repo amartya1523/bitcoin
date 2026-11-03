@@ -65,6 +65,7 @@ class EstimateFeeTest(BitcoinTestFramework):
 
         self.nodes[0].estimaterawfee(1)
         self.nodes[0].estimaterawfee(1, None)
+        self.nodes[0].estimaterawfee(1, 0)
         self.nodes[0].estimaterawfee(1, 1)
 
 
