@@ -29,6 +29,24 @@
     "error_txt": "Could not decode block header",
     "description": ""
   },
+  { "exec": "./bitcoin-util",
+    "args": ["-regtest"],
+    "return_code": 1,
+    "error_txt": "Error: must specify a command",
+    "description": "Options without a command raise an error"
+  },
+  { "exec": "./bitcoin-util",
+    "args": ["-chain=foo", "getchainparams"],
+    "return_code": 1,
+    "error_txt": "Error: Unknown chain foo.",
+    "description": "Unknown -chain value raises an error"
+  },
+  { "exec": "./bitcoin-util",
+    "args": ["-regtest", "-testnet", "getchainparams"],
+    "return_code": 1,
+    "error_txt": "Error: Invalid combination of -regtest, -signet, -testnet, -testnet4 and -chain. Can use at most one.",
+    "description": "More than one chain selected raises an error"
+  },
   {
     "exec": "./bitcoin-util",
     "args": ["getchainparams"],

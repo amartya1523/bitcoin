@@ -49,6 +49,10 @@ class EstimateFeeTest(BitcoinTestFramework):
         # max value of 1008 per src/policy/fees/block_policy_estimator.h
         assert_raises_rpc_error(-8, "Invalid conf_target, must be between 1 and 1008", self.nodes[0].estimaterawfee, 1009)
 
+        # threshold must be within [0, 1]
+        assert_raises_rpc_error(-8, "Invalid threshold", self.nodes[0].estimaterawfee, 1, -0.1)
+        assert_raises_rpc_error(-8, "Invalid threshold", self.nodes[0].estimaterawfee, 1, 1.1)
+
         # valid calls
         self.nodes[0].estimatesmartfee(1)
         # self.nodes[0].estimatesmartfee(1, None)
@@ -61,6 +65,7 @@ class EstimateFeeTest(BitcoinTestFramework):
 
         self.nodes[0].estimaterawfee(1)
         self.nodes[0].estimaterawfee(1, None)
+        self.nodes[0].estimaterawfee(1, 0)
         self.nodes[0].estimaterawfee(1, 1)
 
 
