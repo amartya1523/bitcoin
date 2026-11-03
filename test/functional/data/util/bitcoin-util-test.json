@@ -29,6 +29,12 @@
     "error_txt": "Could not decode block header",
     "description": ""
   },
+  { "exec": "./bitcoin-util",
+    "args": ["-regtest"],
+    "return_code": 1,
+    "error_txt": "Error: must specify a command",
+    "description": "Options without a command raise an error"
+  },
   {
     "exec": "./bitcoin-util",
     "args": ["getchainparams"],
